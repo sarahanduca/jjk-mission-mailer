@@ -1,24 +1,26 @@
 <?php
-
 namespace App\Mail;
 
+use App\Models\Mission;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderShipped extends Mailable
+class MissionAssignedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $mission;
+    public $sorcererName;
+    public $userId;
+
+    public function __construct(Mission $mission, string $sorcererName = 'Feiticeiro', $userId = null)
     {
-        //
+        $this->mission      = $mission;
+        $this->sorcererName = $sorcererName;
+        $this->userId       = $userId;
     }
 
     /**
@@ -27,7 +29,7 @@ class OrderShipped extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Shipped',
+            subject: '🎯 Nova Missão Atribuída: ' . $this->mission->title,
         );
     }
 
@@ -37,7 +39,12 @@ class OrderShipped extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.new-mission',
+            with: [
+                'mission'      => $this->mission,
+                'sorcererName' => $this->sorcererName,
+                'userId'       => $this->userId,
+            ],
         );
     }
 

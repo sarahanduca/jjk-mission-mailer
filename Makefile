@@ -76,3 +76,12 @@ clear: ## Clear all caches
 	./vendor/bin/sail artisan config:clear
 	./vendor/bin/sail artisan route:clear
 	./vendor/bin/sail artisan view:clear
+
+queue: ## Start queue worker for processing jobs (emails)
+	./vendor/bin/sail artisan queue:work
+
+queue-listen: ## Start queue listener (restarts on code changes)
+	./vendor/bin/sail artisan queue:listen
+
+swagger: ## Generate Swagger/OpenAPI documentation
+	./vendor/bin/sail artisan l5-swagger:generate

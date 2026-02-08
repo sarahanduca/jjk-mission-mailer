@@ -16,7 +16,7 @@ class MissionAssignedMail extends Mailable
     public $sorcererName;
     public $userId;
 
-    public function __construct(Mission $mission, string $sorcererName = 'Feiticeiro', $userId = null)
+    public function __construct(Mission $mission, string $sorcererName = 'Sorcerer', $userId = null)
     {
         $this->mission      = $mission;
         $this->sorcererName = $sorcererName;
@@ -29,7 +29,7 @@ class MissionAssignedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '🎯 Nova Missão Atribuída: ' . $this->mission->title,
+            subject: '🎯 New Mission Assigned: ' . $this->mission->title,
         );
     }
 

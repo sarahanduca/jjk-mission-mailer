@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nova Missão Atribuída - {{ config('app.name', 'Sistema de Feiticeiros') }}</title>
+    <title>New Mission Assigned - {{ config('app.name', 'Sorcerer System') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -201,13 +201,13 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>🎯 Nova Missão Atribuída</h1>
-            <div class="subtitle">Prepare-se para uma nova jornada, {{ $sorcererName ?? 'Feiticeiro' }}!</div>
+            <h1>🎯 New Mission Assigned</h1>
+            <div class="subtitle">Get ready for a new journey, {{ $sorcererName ?? 'Sorcerer' }}!</div>
         </div>
 
         <div class="content">
-            <p>Olá <strong>{{ $sorcererName ?? 'Feiticeiro' }}</strong>,</p>
-            <p>Uma nova missão foi atribuída ao seu perfil. Analise os detalhes abaixo e decida se aceita ou recusa este desafio.</p>
+            <p>Hello <strong>{{ $sorcererName ?? 'Sorcerer' }}</strong>,</p>
+            <p>A new mission has been assigned to your profile. Review the details below and decide whether to accept or decline this challenge.</p>
 
             <div class="mission-card">
                 <h2 style="margin-top: 0;">{{ $mission->title }}</h2>
@@ -219,60 +219,60 @@
                         <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
                     <div>
-                        <strong>Data Limite:</strong> {{ $mission->deadline->format('d/m/Y H:i') }}
+                        <strong>Deadline:</strong> {{ $mission->deadline->format('m/d/Y H:i') }}
                         @if($mission->deadline->isFuture())
-                            <br><small>(Faltam {{ $mission->deadline->diffForHumans() }})</small>
+                            <br><small>({{ $mission->deadline->diffForHumans() }})</small>
                         @endif
                     </div>
                 </div>
                 @endif
 
                 <div class="description">
-                    <strong>Descrição da Missão:</strong><br>
-                    {{ $mission->description ?? 'Descrição não disponível' }}
+                    <strong>Mission Description:</strong><br>
+                    {{ $mission->description ?? 'Description not available' }}
                 </div>
 
                 <div class="mission-details">
                     <div class="detail-item">
-                        <div class="detail-label">ID da Missão</div>
+                        <div class="detail-label">Mission ID</div>
                         <div class="detail-value">#{{ $mission->id }}</div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Categoria</div>
+                        <div class="detail-label">Category</div>
                         <div class="detail-value">
                             @if($mission->category)
                                 <span class="badge badge-category">{{ $mission->category }}</span>
                             @else
-                                Não especificada
+                                Not specified
                             @endif
                         </div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Nível de Maldição</div>
-                        <div class="detail-value">{{ $mission->curse_level ?? 'Não especificado' }}</div>
+                        <div class="detail-label">Curse Level</div>
+                        <div class="detail-value">{{ $mission->curse_level ?? 'Not specified' }}</div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Grau Necessário</div>
-                        <div class="detail-value">{{ $mission->required_sorcerer_grade ?? 'Qualquer grau' }}</div>
+                        <div class="detail-label">Required Grade</div>
+                        <div class="detail-value">{{ $mission->required_sorcerer_grade ?? 'Any grade' }}</div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Localização</div>
-                        <div class="detail-value">{{ $mission->location ?? 'Não especificada' }}</div>
+                        <div class="detail-label">Location</div>
+                        <div class="detail-value">{{ $mission->location ?? 'Not specified' }}</div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Urgência</div>
+                        <div class="detail-label">Urgency</div>
                         <div class="detail-value">
                             @if($mission->urgency_level)
                                 @php
                                     $urgencyClass = [
-                                        'alta' => 'badge-urgency-high',
-                                        'média' => 'badge-urgency-medium',
-                                        'baixa' => 'badge-urgency-low',
+                                        'high' => 'badge-urgency-high',
+                                        'medium' => 'badge-urgency-medium',
+                                        'low' => 'badge-urgency-low',
                                     ][strtolower($mission->urgency_level)] ?? 'badge-urgency-medium';
                                 @endphp
                                 <span class="badge {{ $urgencyClass }}">{{ ucfirst($mission->urgency_level) }}</span>
@@ -283,38 +283,38 @@
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Status Atual</div>
+                        <div class="detail-label">Current Status</div>
                         <div class="detail-value">
                             @if($mission->status)
                                 @php
                                     $statusClass = [
-                                        'pendente' => 'badge-status-pending',
-                                        'ativa' => 'badge-status-active',
-                                        'concluída' => 'badge-status-completed',
+                                        'pending' => 'badge-status-pending',
+                                        'active' => 'badge-status-active',
+                                        'completed' => 'badge-status-completed',
                                     ][strtolower($mission->status)] ?? 'badge-status-pending';
                                 @endphp
                                 <span class="badge {{ $statusClass }}">{{ ucfirst($mission->status) }}</span>
                             @else
-                                <span class="badge badge-status-pending">Pendente</span>
+                                <span class="badge badge-status-pending">Pending</span>
                             @endif
                         </div>
                     </div>
 
                     <div class="detail-item">
-                        <div class="detail-label">Criação</div>
-                        <div class="detail-value">{{ $mission->created_at->format('d/m/Y') }}</div>
+                        <div class="detail-label">Created</div>
+                        <div class="detail-value">{{ $mission->created_at->format('m/d/Y') }}</div>
                     </div>
                 </div>
 
                 @if($mission->curses && $mission->curses->count() > 0)
                 <div style="margin: 20px 0;">
-                    <h3 style="margin-bottom: 10px;">Maldições Envolvidas</h3>
+                    <h3 style="margin-bottom: 10px;">Curses Involved</h3>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                         @foreach($mission->curses as $curse)
                             <span style="background: #f8d7da; color: #721c24; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
                                 {{ $curse->name }}
                                 @if($curse->pivot && $curse->pivot->is_primary_target)
-                                    <span style="background: #dc3545; color: white; padding: 1px 4px; border-radius: 2px; margin-left: 4px; font-size: 10px;">PRINCIPAL</span>
+                                    <span style="background: #dc3545; color: white; padding: 1px 4px; border-radius: 2px; margin-left: 4px; font-size: 10px;">PRIMARY</span>
                                 @endif
                             </span>
                         @endforeach
@@ -324,40 +324,40 @@
             </div>
 
             <div style="text-align: center; margin: 30px 0;">
-                <p><strong>Tem até {{ $mission->deadline ? $mission->deadline->format('d/m/Y') : '48 horas' }} para responder</strong></p>
-                <p style="color: #6c757d; font-size: 14px;">Sua resposta será registrada em seu histórico de missões</p>
+                <p><strong>You have until {{ $mission->deadline ? $mission->deadline->format('m/d/Y') : '48 hours' }} to respond</strong></p>
+                <p style="color: #6c757d; font-size: 14px;">Your response will be recorded in your mission history</p>
             </div>
 
             <div class="buttons-container">
                 <a href="{{ url('/api/missions/' . $mission->id . '/accept?user_id=' . ($userId ?? '')) }}" class="btn btn-accept">
-                    ✅ Aceitar Missão
+                    ✅ Accept Mission
                 </a>
                 <a href="{{ url('/api/missions/' . $mission->id . '/decline?user_id=' . ($userId ?? '')) }}" class="btn btn-decline">
-                    ❌ Recusar Missão
+                    ❌ Decline Mission
                 </a>
             </div>
 
             <div style="margin-top: 30px; padding: 15px; background: #e7f3ff; border-radius: 6px; border: 1px solid #b8daff;">
-                <h4 style="margin-top: 0; color: #004085;">📋 Informações Importantes</h4>
+                <h4 style="margin-top: 0; color: #004085;">📋 Important Information</h4>
                 <ul style="margin-bottom: 0; padding-left: 20px;">
-                    <li>Ao aceitar, você assume total responsabilidade pela execução da missão</li>
-                    <li>Missões recusadas podem ser realocadas para outros feiticeiros</li>
-                    <li>O não cumprimento de missões aceitas pode afetar sua avaliação</li>
-                    <li>Em caso de dúvidas, contate o Conselho de Feiticeiros</li>
+                    <li>By accepting, you assume full responsibility for the mission execution</li>
+                    <li>Declined missions may be reassigned to other sorcerers</li>
+                    <li>Failure to complete accepted missions may affect your evaluation</li>
+                    <li>If you have any questions, contact the Sorcerer Council</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
-            <p>© {{ date('Y') }} {{ config('app.name', 'Sistema de Feiticeiros') }}. Todos os direitos reservados.</p>
+            <p>© {{ date('Y') }} {{ config('app.name', 'Sorcerer System') }}. All rights reserved.</p>
             <p>
-                <a href="{{ url('/missions/' . $mission->id) }}">Ver detalhes completos</a> |
-                <a href="{{ url('/dashboard') }}">Acessar Painel</a> |
-                <a href="mailto:support@example.com">Suporte</a>
+                <a href="{{ url('/missions/' . $mission->id) }}">View full details</a> |
+                <a href="{{ url('/dashboard') }}">Access Dashboard</a> |
+                <a href="mailto:support@example.com">Support</a>
             </p>
             <p style="font-size: 12px; margin-top: 10px;">
-                Este é um email automático. Por favor, não responda diretamente.
-                <br>ID do email: {{ Str::random(10) }}
+                This is an automated email. Please do not reply directly.
+                <br>Email ID: {{ Str::random(10) }}
             </p>
         </div>
     </div>

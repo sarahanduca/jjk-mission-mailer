@@ -1,0 +1,754 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "JJK Mission Mailer API",
+        "description": "API for managing sorcerer missions and assignments",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Local Development Server"
+        }
+    ],
+    "paths": {
+        "/curse": {
+            "get": {
+                "tags": [
+                    "Curses"
+                ],
+                "summary": "List all curses",
+                "description": "Returns a list of all registered curses",
+                "operationId": "38faac64f2e462e25fe3d1983a08fc71",
+                "responses": {
+                    "200": {
+                        "description": "List of curses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Curse"
+                                            }
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 10
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/curse/{id}": {
+            "get": {
+                "tags": [
+                    "Curses"
+                ],
+                "summary": "Get a curse by ID",
+                "description": "Returns a single curse with related missions",
+                "operationId": "d045883f7ed02d3585a63625dab42038",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Curse details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Curse"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Curse not found"
+                    }
+                }
+            }
+        },
+        "/assignment": {
+            "get": {
+                "tags": [
+                    "Assignments"
+                ],
+                "summary": "List all mission assignments",
+                "description": "Returns a list of all mission assignments with related mission and sorcerer data",
+                "operationId": "12850df236093d31fed45c9552c4fffb",
+                "responses": {
+                    "200": {
+                        "description": "List of assignments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/MissionAssignment"
+                                            }
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 10
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/assignment/{id}": {
+            "get": {
+                "tags": [
+                    "Assignments"
+                ],
+                "summary": "Get an assignment by ID",
+                "description": "Returns a single mission assignment with full details",
+                "operationId": "85f8e70e2afc203e7908754602324f76",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Assignment details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/MissionAssignment"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Assignment not found"
+                    }
+                }
+            }
+        },
+        "/mission": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "List all missions",
+                "description": "Returns a list of all missions with their curses",
+                "operationId": "26ae78d2f611b58e8134577d20234120",
+                "responses": {
+                    "200": {
+                        "description": "List of missions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Mission"
+                                            }
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 10
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/mission/{id}": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Get a mission by ID",
+                "description": "Returns a single mission with curses and assignments",
+                "operationId": "ebdeaea0a06e07aa77fefa53cd411c59",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mission details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Mission"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mission not found"
+                    }
+                }
+            }
+        },
+        "/mission/generate": {
+            "post": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Generate a new mission",
+                "description": "Creates a new mission based on provided parameters. Optionally links a curse and assigns a sorcerer.",
+                "operationId": "8241c121ffbce6b938ba0ad1d0b57ed0",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "sorcerer_id": {
+                                        "description": "ID of sorcerer to assign",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "curse_id": {
+                                        "description": "ID of curse to link",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "curse_level": {
+                                        "type": "string",
+                                        "enum": [
+                                            "grade-4",
+                                            "grade-3",
+                                            "grade-2",
+                                            "semi-grade-1",
+                                            "grade-1",
+                                            "special-grade"
+                                        ]
+                                    },
+                                    "sorcerer_grade": {
+                                        "type": "string",
+                                        "enum": [
+                                            "grade-4",
+                                            "grade-3",
+                                            "grade-2",
+                                            "semi-grade-1",
+                                            "grade-1",
+                                            "special-grade"
+                                        ]
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "urgency_level": {
+                                        "type": "string",
+                                        "enum": [
+                                            "low",
+                                            "medium",
+                                            "high"
+                                        ]
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Mission created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mission generated successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "mission": {
+                                                    "$ref": "#/components/schemas/Mission"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/mission/{id}/send-email": {
+            "post": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Send mission emails to assigned sorcerers",
+                "description": "Sends email notifications to all sorcerers assigned to this mission",
+                "operationId": "b9a47980c2369ac7d9952c1041a63c5b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Emails sent successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "2 email(s) sent"
+                                        },
+                                        "mission": {
+                                            "$ref": "#/components/schemas/Mission"
+                                        },
+                                        "notified_sorcerers": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Sorcerer"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No sorcerers assigned to this mission"
+                    },
+                    "404": {
+                        "description": "Mission not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/mission/unassigned": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Get all unassigned missions",
+                "description": "Returns a list of missions that have not been assigned to any sorcerer",
+                "operationId": "13178e2928ce20ed75bbe1c90f91ca86",
+                "responses": {
+                    "200": {
+                        "description": "List of unassigned missions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "missions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Mission"
+                                                    }
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorcerer": {
+            "get": {
+                "tags": [
+                    "Sorcerers"
+                ],
+                "summary": "List all sorcerers",
+                "description": "Returns a list of all registered sorcerers",
+                "operationId": "2d5346aa5609f6ad43646e475a763fe0",
+                "responses": {
+                    "200": {
+                        "description": "List of sorcerers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Sorcerer"
+                                            }
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 10
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sorcerer/{id}": {
+            "get": {
+                "tags": [
+                    "Sorcerers"
+                ],
+                "summary": "Get a sorcerer by ID",
+                "description": "Returns a single sorcerer with their mission assignments",
+                "operationId": "13556304845cf61ac540217a46001a35",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sorcerer details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Sorcerer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sorcerer not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Curse": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Finger Bearer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "curse_level": {
+                        "type": "string",
+                        "example": "special-grade"
+                    },
+                    "curse_type": {
+                        "type": "string",
+                        "example": "Cursed Spirit"
+                    },
+                    "abilities": {
+                        "type": "string"
+                    },
+                    "known_weaknesses": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "at_large"
+                    },
+                    "first_sighted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "MissionAssignment": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "mission_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "sorcerer_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "assigned_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "started_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "result_status": {
+                        "type": "string",
+                        "enum": [
+                            "success",
+                            "partial_success",
+                            "failure",
+                            "aborted"
+                        ],
+                        "nullable": true
+                    },
+                    "casualties": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "mission_report": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Mission": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Exorcise: Finger Bearer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "required_sorcerer_grade": {
+                        "type": "string",
+                        "example": "grade-2"
+                    },
+                    "curse_level": {
+                        "type": "string",
+                        "example": "grade-2"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "exorcism"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "Tokyo"
+                    },
+                    "urgency_level": {
+                        "type": "string",
+                        "enum": [
+                            "low",
+                            "medium",
+                            "high"
+                        ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "available"
+                    },
+                    "deadline": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Sorcerer": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Yuji Itadori"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "yuji@jujutsu.jp"
+                    },
+                    "sorcerer_grade": {
+                        "type": "string",
+                        "example": "grade-1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Missions",
+            "description": "Mission management endpoints"
+        },
+        {
+            "name": "Curses",
+            "description": "Curses"
+        },
+        {
+            "name": "Assignments",
+            "description": "Assignments"
+        },
+        {
+            "name": "Sorcerers",
+            "description": "Sorcerers"
+        }
+    ]
+}

@@ -97,3 +97,7 @@ make swagger
 ```bash
 make help          # Lista todos os comandos disponíveis
 ```
+
+## Estrutura do Banco de Dados
+
+![Diagrama do Banco de Dados](image-1.png)
